@@ -1,0 +1,48 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/StudentAdmin/css/studentAdmin.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="typeList">
+        <div class="t-item t-active">首页</div>
+        <div class="t-item" onclick="window.location.href='{:U(\'StudentAdmin/subject\')}'">公益劳动</div>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header"><span class="glyphicon glyphicon-home"></span> 首页</div>
+    <div class="section welcome">
+        <div class="w-title">欢迎使用素质拓展活动学分认定系统！</div>
+        <div class="w-tips">本次登录IP为：{$note["login_ip"]} | 上次登录时间为：<empty name="note['created_at']">暂无记录</empty>{$note["created_at"]}</div>
+        <div class="w-content">
+            <div class="col-xs-6">
+                <div class="w-small-title">管理员信息</div>
+                <div class="w-small-content">
+                    <div class="w-small-row"><span class="w-ico glyphicon glyphicon-barcode"></span> 工号：{$user[C('USERID')]}</div>
+                    <div class="w-small-row"><span class="w-ico glyphicon glyphicon-user"></span> 姓名：{$user[C('NAME')]}</div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="w-small-title w-control">快捷操作</div>
+                <div class="w-small-content">
+                    <div class="w-small-row w-small-href" onclick="window.location.href='{:U(\'StudentAdmin/addItem\')}'"><span class="w-ico glyphicon glyphicon-edit"></span> 快速添加</div>
+                    <div class="w-small-row w-small-href" onclick="window.location.href='{:U(\'StudentAdmin/subject\')}'"><span class="w-ico glyphicon glyphicon-list-alt"></span> 历史纪录</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section notice">
+        <div class="n-title">通知</div>
+        <div class="n-tips">更新时间：{$notice['updated_at']}</div>
+        <div class="n-content">{$notice['content']}</div>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域"></block>
+<block name="js" title="js区域">
+    <script src="__PUBLIC__/application/StudentAdmin/js/studentAdmin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#msg").click(function(){
+            window.location.href='{:U(\'StudentAdmin/message\')}'
+        });
+    </script>
+</block>

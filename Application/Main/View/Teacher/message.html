@@ -1,0 +1,51 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/Teacher/css/teacher.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="studentList">
+        <div class="s-item s-title" onclick="window.location.href='{:U(\'Teacher/index\')}'">首页</div>
+        <div class="s-item s-title s-active">消息</div>
+        <volist name="side" id="vo">
+            <div class="s-item">
+                <div class="s-title">{$vo['name']}<span class="s-ico glyphicon glyphicon-chevron-down"></span></div>
+                <div class="s-content">
+                    <volist name="vo['student']" id="vo2">
+                        <if condition="$type eq $vo2['student_id']">
+                            <div class="s-content-item s-name s-active" onclick="window.location.href='{$vo2[\'url\']}'">{$vo2['student_name']}</div>
+                            <else />
+                            <div class="s-content-item s-name" onclick="window.location.href='{$vo2[\'url\']}'">{$vo2['student_name']}</div>
+                        </if>
+                    </volist>
+                </div>
+            </div>
+        </volist>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header"><span class="glyphicon glyphicon-home"></span> 消息</div>
+    <div class="message">
+        <empty name="message">
+            <div class="x-item"><div class="x-empty"></div></div>
+        </empty>
+        <volist name="message" id="vo">
+            <div class="x-item">
+                <div class="x-type">{$vo['type']}</div>
+                <div class="x-content">
+                    <div class="x-title">{$vo['title']}<span class="x-datetime">{$vo['created_at']}</span></div>
+                    <div class="x-detail">{$vo['content']}</div>
+                </div>
+            </div>
+        </volist>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域"></block>
+<block name="js" title="js区域">
+    <script src="__PUBLIC__/application/Teacher/js/teacher.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#msg").click(function(){
+            window.location.href='{:U(\'Teacher/message\')}'
+        });
+    </script>
+</block>

@@ -1,0 +1,161 @@
+<style type="text/css">
+    #modal-go-content{
+        position: relative;
+    }
+    .approval #f-input-point{
+        margin-right: 15px;
+        padding: 5px;
+    }
+    .approval .f-input-group{
+        height: 40px;
+        margin-bottom: 10px;
+    }
+    .approval .f-label{
+        font-size: 14px!important;
+        text-align: center;
+    }
+    .approval .f-group span{
+        line-height: 30px;
+        font-size: 14px;
+    }
+    .approval .f-title{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .approval textarea{
+        resize: none;
+        color: #323232;
+        padding: 5px;
+        outline: none;
+    }
+</style>
+
+<div id="modal-go" class="approval modal fade bs-example-modal-sm" role="dialog">
+    <div class="modal-dialog  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">审批通过</h4>
+            </div>
+            <div id="modal-go-content" class="modal-body">
+                <form id="form-go" method="post">
+                    <div class="f-group">
+                        <label class="f-label col-xs-3">标题：</label>
+                        <span class="col-xs-9 f-title"></span>
+                        <input class="f-record" type="hidden" name="recordId" value="">
+                    </div>
+                    <div class="f-input-group">
+                        <label for="f-input-point" class="f-label col-xs-3">分数：</label>
+                        <input id="f-input-point" class="f-input col-xs-5" name="point" type="text" placeholder="请输入评分" maxlength="4">
+                        <button id="btn-adopt" class="btn btn-info col-xs-3" type="button">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-not-go" class="approval modal fade bs-example-modal-sm" role="dialog">
+    <div class="modal-adjust modal-dialog  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">审批不通过</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-not-go" method="post">
+                    <div class="f-group">
+                        <label class="f-label col-xs-3">标题：</label>
+                        <span class="col-xs-9 f-title"></span>
+                        <input class="f-record" type="hidden" name="recordId" value="">
+                    </div>
+                    <div class="f-group" style="height: auto;margin-bottom: 10px;">
+                        <p class="f-label" style="height:30px;margin-bottom: 10px;">
+                            <label class="f-label col-xs-3">反馈：</label>
+                        </p>
+                        <textarea class="f-textarea" name="feedback" style="width: 100%;height: 130px;"></textarea>
+                    </div>
+                    <div class="f-group" style="text-align: center;">
+                        <button id="btn-failed" class="btn btn-info" type="button" style="width: 100px;">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var KeyBoard = function(inputId, options){ //小键盘
+        var body = document.getElementById('modal-go-content');
+        var DIV_ID = options && options.divId || 'keypad';
+
+        if(document.getElementById(DIV_ID)){
+            body.removeChild(document.getElementById(DIV_ID));
+        }
+
+        this.input = document.getElementById(inputId);
+        this.el = document.createElement('div');
+
+        var self = this;
+        var width = options && options.width || '100%';
+        var height = options && options.height || '163px';
+        var fontSize = options && options.fontSize || '15px';
+        var backgroundColor = options && options.backgroundColor || '#fff';
+        var TABLE_ID = options && options.table_id || 'table_keypad';
+        var mobile = typeof orientation !== 'undefined';
+
+        this.el.id = DIV_ID;
+        this.el.style.width = width;
+        this.el.style.height = height;
+        this.el.style.backgroundColor = backgroundColor;
+        this.el.style.border = '1px soild #ccc';
+
+        //样式
+        var cssStr = '<style type="text/css">';
+        cssStr += '#' + TABLE_ID + '{text-align:center;width:100%;height:160px;border-top:1px solid #CECDCE;background-color:#FFF;}';
+        cssStr += '#' + TABLE_ID + ' td{width:33%;border:1px solid #ddd;border-right:0;border-top:0;cursor: pointer;font-size:16px;}';
+        cssStr += '#' + TABLE_ID + ' td:last-child{border-right:1px solid #ddd;}';
+        if(!mobile){
+            cssStr += '#' + TABLE_ID + ' td:hover{background-color:#1FB9FF;color:#FFF;}';
+        }
+        cssStr += '</style>';
+
+        //table
+        var tableStr = '<table id="' + TABLE_ID + '" border="0" cellspacing="0" cellpadding="0">';
+        tableStr += '<tr><td>1</td><td>2</td><td>3</td></tr>';
+        tableStr += '<tr><td>4</td><td>5</td><td>6</td></tr>';
+        tableStr += '<tr><td>7</td><td>8</td><td>9</td></tr>';
+        tableStr += '<tr><td style="background-color:#50bddf;">.</td><td>0</td>';
+        tableStr += '<td style="background-color:#50bddf;">删除</td></tr>';
+        tableStr += '</table>';
+        this.el.innerHTML = cssStr  + tableStr;
+
+        function addEvent(e){
+            var ev = e || window.event;
+            var clickEl = ev.element || ev.target;
+            var value = clickEl.textContent || clickEl.innerText;
+            if(clickEl.tagName.toLocaleLowerCase() === 'td' && value !== "删除"){
+                if(self.input){
+                    self.input.value += value;
+                }
+            }else if(clickEl.tagName.toLocaleLowerCase() === 'div' && value === "完成"){
+                body.removeChild(self.el);
+            }else if(clickEl.tagName.toLocaleLowerCase() === 'td' && value === "删除"){
+                var num = self.input.value;
+                if(num){
+                    var newNum = num.substr(0, num.length - 1);
+                    self.input.value = newNum;
+                }
+            }
+        }
+
+        if(mobile){
+            this.el.ontouchstart = addEvent;
+        }else{
+            this.el.onclick = addEvent;
+        }
+        body.appendChild(this.el);
+    };
+    new KeyBoard('f-input-point');
+
+</script>

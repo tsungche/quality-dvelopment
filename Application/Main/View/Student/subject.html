@@ -1,0 +1,83 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/Student/css/student.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="typeList">
+        <div class="t-item" onclick="window.location.href='{:U(\'Student/index\')}'">首页</div>
+        <volist name="side" id="vo">
+            <if condition="$type eq $vo['id']">
+                <div class="t-item t-active" onclick="window.location.href='{$vo[url]}'">{$vo['name']}</div>
+            <else />
+                <div class="t-item" onclick="window.location.href='{$vo[url]}'">{$vo['name']}</div>
+            </if>
+        </volist>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header">
+        <span class="glyphicon glyphicon-home"></span> <span class="h-title"></span>
+        <a class="h-add" onclick="window.location.href='{:U(\'Student/addItem\')}'">
+            <img class="h-img" src="__PUBLIC__/application/Student/img/addItem.png">
+            <div class="h-text">添加</div>
+        </a>
+    </div>
+    <div class="section analysis">
+        <div class="a-title">学分认定情况</div>
+        <div class="a-tips">更新时间：<span class="a-tips-date"></span>
+            <div class="a-tips-detail">
+                <span class="a-tips-item">已修学分：{$detail['sum_point']}分</span>
+                <span class="a-tips-item">最低要求：{$detail['min_point']}分</span>
+                <span class="a-tips-item">最大限制：{$detail['max_point']}分</span>
+                <span class="a-tips-item">科目性质：{$detail['property']}</span>
+            </div>
+        </div>
+
+        <table class="table table-check-status a-table">
+            <thead>
+                <tr>
+                    <th>标题</th>
+                    <th width="100px">状态</th>
+                    <th width="80px">上传时间</th>
+                    <th width="80px">审批时间</th>
+                    <th width="50px">得分</th>
+                    <th width="40px">附件</th>
+                    <th width="40px">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <empty name="subjectReport">
+                <tr><td class="t-empty" colspan="11">暂无提交记录</td></tr>
+            </empty>
+            <volist name="subjectReport" id="vo">
+                <tr>
+                    <td class="t-title"><span onclick="window.location.href='{$vo[\'detail_url\']}'">{$vo['title']}</span></td>
+                    <td class="t-status">{$vo['status']}</td>
+                    <td>{$vo['created_at']}</td>
+                    <td>{$vo['updated_at']}</td>
+                    <td>{$vo['point']}</td>
+                    <td class="t-file" data-url="{$vo['file_url']}" data-toggle="modal" data-target="#modal-file">
+                        <img class="t-ico" src="__PUBLIC__/application/Student/img/pdf.png">
+                    </td>
+                    <td class="t-delete">
+                        <img class="t-ico" src="__PUBLIC__/application/Student/img/delete.png" data-value="{$vo['delete_val']}">
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域">
+    <include file="Common:pdf" title="PDF文件预览"/>
+</block>
+<block name="js" title="js区域">
+    <script type="text/javascript">
+        $("#msg").click(function(){
+            window.location.href='{:U(\'Student/message\')}'
+        });
+        var deleteUrl = "{:U('Student/deleteItem')}";
+    </script>
+    <script src="__PUBLIC__/application/Student/js/student.js" type="text/javascript"></script>
+</block>

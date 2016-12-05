@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="description" content="北京理工大学珠海学院商学院素质拓展活动学分认定系统">
+    <link rel="shortcut icon" href="__PUBLIC__/application/Common/img/favicon.ico">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>素质拓展活动学分认定系统</title>
+    <meta name="keywords" content="素质拓展,学分认定,商学院,北京理工大学珠海学院">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/Common/css/base.css">
+    <script src="__PUBLIC__/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <block name="css" title="css区域"></block>
+</head>
+<body>
+<div class="layout">
+    <div class="menu">
+        <div class="m-datetime">
+            <div class="m-time"></div>
+            <div class="m-date"></div>
+        </div>
+        <div class="m-nav">
+            <a class="col-xs-4" data-toggle="modal" data-target="#modal-person">
+                <img class="m-ico" src="__PUBLIC__/application/Common/img/person.png">
+                <div class="m-text">个人</div>
+            </a>
+            <a id="msg" class="col-xs-4">
+                <img class="m-ico" src="__PUBLIC__/application/Common/img/message.png">
+                <div class="m-text">消息</div>
+                <div class="m-read-tips">{$msgCount}</div>
+            </a>
+            <a class="col-xs-4" onclick="window.location.href='{:U(\'Index/exitSystem\')}'">
+                <img class="m-ico" src="__PUBLIC__/application/Common/img/exit.png">
+                <div class="m-text">退出</div>
+            </a>
+        </div>
+        <block name="menu" title="菜单区域"></block>
+    </div>
+    <div class="container">
+        <block name="container" title="内容区域"></block>
+    </div>
+</div>
+<script type="text/javascript">
+    var appRoot = "__ROOT__";
+    var appPublic = "__PUBLIC__";
+    var appUpload = "{:C('UPLOAD_STATIC_SITE')}";
+</script>
+<include file="Common:person" title="个人信息"/>
+<block name="extend" title="扩展区域"></block>
+<script src="__PUBLIC__/application/Common/js/base.js" type="text/javascript"></script>
+<script src="__PUBLIC__/application/Common/js/bootstrap.min.js" type="text/javascript"></script>
+<block name="js" title="js区域"></block>
+</body>
+</html>

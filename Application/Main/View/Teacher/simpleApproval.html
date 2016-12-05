@@ -1,0 +1,155 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/Teacher/css/teacher.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="studentList">
+        <div class="s-item s-title" onclick="window.location.href='{:U(\'Teacher/index\')}'">首页</div>
+        <div class="s-item s-title s-active">快速审批</div>
+        <volist name="side" id="vo">
+            <div class="s-item">
+                <div class="s-title">{$vo['name']}<span class="s-ico glyphicon glyphicon-chevron-down"></span></div>
+                <div class="s-content">
+                    <volist name="vo['student']" id="vo2">
+                        <if condition="$type eq $vo2['student_id']">
+                            <div class="s-content-item s-name s-active" onclick="window.location.href='{$vo2[\'url\']}'">{$vo2['student_name']}</div>
+                            <else />
+                            <div class="s-content-item s-name" onclick="window.location.href='{$vo2[\'url\']}'">{$vo2['student_name']}</div>
+                        </if>
+                    </volist>
+                </div>
+            </div>
+        </volist>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header"><span class="glyphicon glyphicon-home"></span> 快速审批</div>
+    <div class="section report">
+        <div class="a-title">待审批记录</div>
+        <div class="a-tips">更新时间：<span class="a-tips-date"></span></div>
+        <table class="table table-check-status a-table">
+            <thead>
+                <tr>
+                    <th>学生</th>
+                    <th>标题</th>
+                    <th width="150px">类型</th>
+                    <th width="100px">状态</th>
+                    <th width="80px">上传时间</th>
+                    <th width="50px">得分</th>
+                    <th width="40px">附件</th>
+                    <th width="120px" colspan="3">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <empty name="record">
+                <tr><td class="t-empty" colspan="11">暂无提交记录</td></tr>
+            </empty>
+            <volist name="record" id="vo">
+                <tr data-value="{$vo['id']}">
+                    <td class="t-name"><a href="{$vo['student_url']}">{$vo['name']}</a></td>
+                    <td class="t-title"><span onclick="window.location.href='{$vo[\'detail_url\']}'">{$vo['title']}</span></td>
+                    <td>{$vo['type']}</td>
+                    <td class="t-status">{$vo['status']}</td>
+                    <td>{$vo['created_at']}</td>
+                    <td>{$vo['point']}</td>
+                    <td class="t-file" data-url="{$vo['file_url']}" data-toggle="modal" data-target="#modal-file">
+                        <img class="t-ico" src="__PUBLIC__/application/Teacher/img/pdf.png">
+                    </td>
+                    <if condition="$vo['status'] eq '待导师审批'">
+                        <td width="40px">
+                            <img class="t-ico t-adopt" src="__PUBLIC__/application/Teacher/img/adopt.png" title="通过" data-toggle="modal" data-target="#modal-go">
+                        </td>
+                        <td width="40px">
+                            <img class="t-ico t-handling" src="__PUBLIC__/application/Teacher/img/handling.png" title="待商议" data-value="{$vo['handling_val']}">
+                        </td>
+                        <td width="40px">
+                            <img class="t-ico t-failed" src="__PUBLIC__/application/Teacher/img/failed.png" title="不通过" data-toggle="modal" data-target="#modal-not-go">
+                        </td>
+                    <else />
+                        <td class="t-view" colspan="3"><a href="{$vo['detail_url']}">查看</a></td>
+                    </if>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域">
+    <include file="Common:pdf" title="PDF文件预览"/>
+    <include file="Common:approval" title="审批操作"/>
+</block>
+<block name="js" title="js区域">
+    <script src="__PUBLIC__/application/Teacher/js/teacher.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#msg").click(function(){
+            window.location.href='{:U(\'Teacher/message\')}'
+        });
+
+        $(".t-handling").on('click',function(){  //待商议
+            var recordId = $(this).data("value");
+            if(confirm("确认待商议处理吗？")){
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: "{:U('Teacher/handling')}",
+                    data: {"recordId" : recordId},
+                    async: false,
+                    error: function(data) {
+                        alert("操作发生异常");
+                    },
+                    success: function(data) {
+                        if(data.status){
+                            alert("操作成功");
+                            window.location.reload(true);
+                        }else{
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        });
+
+        $("#btn-adopt").click(function(){ //异步提交表单：审批通过
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "{:U('Teacher/adopt')}",
+                data:$('#form-go').serialize(),// 你的formid
+                async: false,
+                error: function(data) {
+                    alert("操作发生异常");
+                },
+                success: function(data) {
+                    if(data.status){
+                        alert("操作成功");
+                        window.location.reload(true);
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+
+        $("#btn-failed").click(function(){ //异步提交表单：审批不通过
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "{:U('Teacher/failed')}",
+                data:$('#form-not-go').serialize(),// 你的formid
+                async: false,
+                error: function(data) {
+                    alert("操作发生异常");
+                },
+                success: function(data) {
+                    if(data.status){
+                        alert("操作成功");
+                        window.location.reload(true);
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,322 @@
+.pull-down .glyphicon{
+    top: 0;
+}
+.pull-down-content{
+    float: left;
+    width: 100%;
+    height: auto;
+    border: 1px solid #e8e8e8;
+    margin-bottom: 1%;
+}
+.pull-down-content-one{
+    float: left;
+    border-bottom: 1px dashed #cccccc;
+    float: left;
+    width: 100%;
+}
+.pull-down-content-one p{
+    color: #ADADAD;
+    width: 10%;
+    float: left;
+    font-size: 1em;
+    padding-top: 8px;
+    padding-left:25px;
+}
+.pull-down-content-one a {
+    margin-right: 2%;
+    color: #999;
+    padding-top: 8px;
+    float: left;
+    white-space:nowrap;
+}
+.pull-down-content-one a:hover, a:focus {
+    color: #428bca;
+}
+h3 {
+    margin-top: 0 !important;
+}
+
+.page-sidebar span:hover {
+    background-color: #2d89ef !important;
+    color: #ffffff !important;
+}
+
+.dropdown {
+    color: #222222;
+    border: 0;
+    margin-top: 14%;
+}
+
+.dropdown-toggle {
+    color: rgb(153, 153, 153);
+    background-color: rgb(34, 34, 34);
+    border: 0px;
+}
+
+.function {
+    float: right;
+    padding-left: 20px;
+    margin-top: -8px;
+}
+
+.function p {
+    color: #999;
+    font-size: .5em;
+}
+
+.function li {
+    text-align: center;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.table {
+    float: left;
+}
+
+.input-group-btn {
+    float: left;
+    width: 0;
+    padding-top: 0;
+    right: 39px;
+}
+
+.sidebar {
+    position: fixed !important;;
+    top: 31px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    padding: 20px 0px 0px !important;
+    border-right: 1px solid #F3F2F2;
+}
+
+.page-sidebar {
+    display: block;
+    width: 100%;
+    float: left;
+    min-height: 100% !important;
+    height: auto;
+
+}
+
+.page-sidebar a {
+    padding: 10px 30px !important;
+    font-family: 'Segoe UI', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 11pt;
+    letter-spacing: 0.01em;
+    line-height: 14pt;
+    font-smooth: always;
+    color: #428BCA;
+    display: block;
+    width: 100%;
+    padding: 5px 20px 5px 10px;
+    white-space: nowrap;
+    font-size: 14px;
+    cursor: pointer;
+
+}
+
+.page-sidebar a:active {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.page-sidebar a:hover {
+    background-color: #2d89ef !important;
+    color: #ffffff !important;
+}
+
+.page-sidebar > ul > li > a {
+    font-size: 1.1em;
+}
+
+.page-sidebar ul {
+    padding: 0;
+    margin-left: 0;
+    list-style: none;
+    background-color: #f5f5f5;
+}
+
+.page-sidebar ul.sub-menu {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.page-sidebar ul.sub-menu a {
+    padding: 10px 55px !important;
+}
+
+.page-sidebar ul.sub-menu.light {
+    background-color: #FCFCFC !important;
+}
+
+
+
+.menu-one {
+    margin-bottom: 0;
+}
+.btn-primary{
+    margin-right: 2%;
+}
+.menu-one a {
+    font-size: 20px;
+    padding-left: 20px !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+.main {
+    padding-right: 1% !important;
+    padding-left: 1% !important;
+    padding-top: 53px;
+    padding-bottom: 20px;
+}
+.main h3{
+    padding-top: 1%;
+    margin-bottom: 0px;
+    padding-bottom: 1%;
+}
+.col-sm-2 {
+    width: 15% !important;
+}
+
+.col-sm-8 {
+    width: 85% !important;
+}
+
+.help-block {
+    float: left;
+    margin-left: 2%;
+}
+
+td {
+    text-align: center;
+}
+
+.form-control {
+    float: left;
+    width: auto !important;
+}
+.checkbox{
+     margin-top: 0px !important;
+}
+.checkbox-inline {
+    margin-bottom: 20px !important;
+}
+
+.input_width {
+    height: 30px !important;
+}
+
+.category {
+    float: left;
+    padding-right: 15px;
+}
+
+.form-group {
+    float: none !important
+}
+
+.product a:hover, a:focus {
+    color: #2a6496;
+    text-decoration: underline;
+}
+
+.pull-down{
+    right: -20px;
+    bottom: 0;
+    position: absolute;
+    width: 1.4em;
+    float: left;
+    font-size: .5em;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin-left: .4em;
+    margin-top: 4%;
+    color: #B1B0B0;
+}
+
+.input_width {
+    width: 200px !important;
+}
+
+.text_width {
+    width: 300px !important;
+}
+
+.glyphicon-eye-close, .glyphicon-tags, .glyphicon-pencil, .glyphicon-trash , .glyphicon-file{
+    margin-top: 4px;
+    color: #428BCA;
+}
+
+.top {
+    float: left;
+    width: 100%;
+
+}
+
+.table {
+    float: left;
+}
+.btn-search:hover{
+    background-color: #fff !important;
+    box-shadow: none !important;
+}
+.input-group-btn {
+    float: left;
+    margin-top: 4px !important;
+    width: 0 !important;
+    padding-top: 0 !important;
+    right: 39px !important;
+}
+
+.glyphicon-search {
+    display: block !important;
+}
+
+.table-title {
+    text-align: center;
+}
+
+.search {
+    position: absolute;
+    top: 0;
+    margin-top: 1%;
+}
+
+.breadcrumb {
+    height: 10%;
+    padding: 1.3% !important;
+    position: relative;
+    margin-bottom: 0px !important;
+
+}
+
+.input-group-sm > .input-group-btn > .btn {
+    height: 25px !important;
+    padding: 5px 13px !important;
+}
+
+.table-th, .table-striped th {
+    text-align: center !important;
+}
+
+.glyphicon-minus-sign, .glyphicon-plus-sign ,.glyphicon-chevron-down{
+
+    margin-top: 2px;
+    margin-right: 6px;
+    float: left;
+    font-size: 13px;
+}
+
+.menu-title {
+    font-size: 1.1em;
+    margin: 2px 0px 0px;
+}

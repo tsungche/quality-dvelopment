@@ -1,0 +1,203 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/StudentAdmin/css/studentAdmin.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="typeList">
+        <div class="typeList">
+            <div class="t-item" onclick="window.location.href='{:U(\'StudentAdmin/index\')}'">首页</div>
+            <div class="t-item" onclick="window.location.href='{:U(\'StudentAdmin/subject\')}'">公益劳动</div>
+            <div class="t-item t-active">上传材料</div>
+        </div>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header"><span class="glyphicon glyphicon-home"></span> 上传材料</div>
+    <div class="i-search">
+        <form id="s-search" action="post">
+            <label class="s-label">公益学分查询：</label>
+            <input class="s-input" type="text" name="studentId" placeholder="学号"/>
+            <button class="s-btn btn btn-primary" type="button">搜索</button>
+        </form>
+    </div>
+    <div class="section item">
+        <div class="i-content">
+            <div class="tag-group">
+                <div class="tag-item tag-active" data-tag=".t-single">单个上传</div>
+                <div class="tag-item" data-tag=".t-batch">批量上传</div>
+            </div>
+            <div class="tag-content t-single">
+                <div class="i-form">
+                    <form id="i-add" method="post">
+                        <div class="f-teach">
+                            <div class="f-group">
+                                说明：为了方便资料的收集、整理与统计，统一使用PDF文件上传。<br/>
+                                教程：<a href="http://jingyan.baidu.com/article/dca1fa6f866c26f1a44052ea.html" target="_blank">【百度经验】word转pdf教程</a>
+                            </div>
+                        </div>
+                        <div class="f-group">
+                            <label class="f-label col-xs-3">学号</label>
+                            <input class="f-input col-xs-9" type="text" name="user_id" required>
+                        </div>
+                        <div class="f-group">
+                            <label class="f-label col-xs-3">标题</label>
+                            <input class="f-input col-xs-9" type="text" name="title" required>
+                        </div>
+                        <div class="f-group">
+                            <label class="f-label col-xs-3">附件</label>
+                            <div class="f-upload-group col-xs-9">
+                                <input id="f-file" class="f-file" name="f-file" type="file" accept=".pdf">
+                                <button class="f-btn btn btn-danger" name="file" type="button">上传</button>
+                                <input class="f-url" type="hidden" name="url" value="">
+                                <div class="f-tips"> * . pdf ; 限制30MB</div>
+                            </div>
+                        </div>
+                        <div class="f-group" style="height: 150px">
+                            <label class="f-label col-xs-3">说明</label>
+                            <textarea name="remark"></textarea>
+                        </div>
+                        <div class="f-group">
+                            <label class="f-label col-xs-3">分数</label>
+                            <input class="f-input col-xs-9" type="text" name="point" required>
+                        </div>
+                        <div class="f-btn-group">
+                            <button id="btn-submit" class="btn btn-success" type="button">提交</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="modal-pdf" class="i-pdf"></div>
+            </div>
+            <div class="tag-content t-batch">
+                <div class="tag-upload">
+                    <div class="u-content">
+                        <form id="i-upload" method="post">
+                            <img class="u-img" src="__PUBLIC__/application/StudentAdmin/img/upload.png">
+                            <div class="u-group">
+                                <input id="u-xls" class="u-file" name="u-xls" type="file" accept=".xls,.xlsx">
+                                <button class="u-btn btn btn-danger" name="file" type="button">上传</button>
+                                <div class="u-tips"> * . xls ; * . xlsx ; 限制30MB</div>
+                                <div class="u-download" onclick="window.location.href='{:U(\'StudentAdmin/download\')}'">模板下载</div>
+                            </div>
+                            <div class="f-btn-group">
+                                <button id="btn-upload" class="btn btn-success" type="button">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--批量上传反馈框-->
+    <div id="m-tips" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" style="margin-top: 70px;">
+            <div class="modal-content" style="background: white;">
+                <div class="m-tips-result">共导入0条记录，成功0条，失败0条</div>
+                <div class="m-tips-list"></div>
+                <div class="f-btn-group" style="padding: 10px 0;margin: 10px 0 0 0;">
+                    <button id="btn-close" class="btn btn-default" type="button">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域">
+    <include file="Common:pdf" title="PDF文件预览"/>
+    <include file="Common:upload" title="文件上传"/>
+</block>
+<block name="js" title="js区域">
+    <script type="text/javascript">
+        var subjectUrl = "{:U('StudentAdmin/subject')}";
+        $("#msg").click(function(){
+            window.location.href='{:U(\'StudentAdmin/message\')}'
+        });
+        $(".s-btn").click(function(){ //查询学生公益学分
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "{:U('StudentAdmin/search')}",
+                data: $('#s-search').serialize(),// 你的formid
+                async: false,
+                error: function(data) {
+                    alert("操作发生异常");
+                },
+                success: function(data) {
+                    if(data.status){
+                        alert(data.msg);
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+        $("#btn-submit").on('click',function(){ //添加单个
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "{:U('StudentAdmin/saveItem')}",
+                data: $('#i-add').serialize(),// 你的formid
+                async: false,
+                error: function(data) {
+                    alert("操作发生异常");
+                },
+                success: function(data) {
+                    if(data.status){
+                        alert("操作成功");
+                        window.location.reload(true);
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+        $("#btn-upload").on('click',function(){ //上传xls
+            new uploadFiles({
+                initialize : function(){
+                    $(".u-tips").html("<span class='f-loading'></span> 上传中...");
+                },
+                fileElementId : "u-xls",
+                url : "{:U('StudentAdmin/uploadItem')}",
+                callback : function(file,status){
+                    if(status){
+                        if(typeof(file) == "string"){
+                            $(".u-tips").html("上传失败，请重试");
+                            alert(file); //弹出错误报告
+                        }else{
+                            console.log(file);
+                            $(".u-tips").html("上传成功");
+                            if(file.status){
+                                var list = file.list;
+                                var count = 0;
+                                var fault = 0;
+                                for(var i = 0;i < list.length ; i++){
+                                    var item = list[i];
+                                    if(!item.result.status){
+                                        var tipsGroup = "<div class=\"m-tips-group\">"
+                                                            +"<div class=\"m-tips-title\">"
+                                                                +"<div class=\"m-col\">"+item.user_id+"</div>"
+                                                                +"<div class=\"m-col\">"+item.name+"</div>"
+                                                                +"<div class=\"m-col\">失败</div>"
+                                                            +"</div>"
+                                                            +"<div class=\"m-tips-content\">原因："+item.result.msg+"</div>"
+                                                        +"</div>";
+                                        $("#m-tips").find(".m-tips-list").append(tipsGroup);
+                                        fault++;
+                                    }
+                                    count++;
+                                }
+                                var success = count - fault;
+                                $(".m-tips-result").html("共导入"+count+"条记录，成功"+success+"条，失败"+fault+"条");
+                                $('#m-tips').modal('show');
+                            }else{
+                                alert(file.msg);
+                            }
+                        }
+                    }else{
+                        $(".f-tips").html("上传失败，请重试");
+                    }
+                }
+            }).startUpload();
+        });
+    </script>
+    <script src="__PUBLIC__/application/StudentAdmin/js/studentAdmin.js" type="text/javascript"></script>
+</block>

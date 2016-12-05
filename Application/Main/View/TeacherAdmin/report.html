@@ -1,0 +1,109 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/TeacherAdmin/css/teacherAdmin.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="studentList">
+        <div class="t-item" onclick="window.location.href='{:U(\'TeacherAdmin/index\')}'">首页</div>
+        <div class="t-item t-active">统计分析</div>
+        <div class="t-item">基础管理</div>
+        <div class="t-item">教师管理</div>
+        <div class="t-item">学生管理</div>
+        <div class="t-item">管理员管理</div>
+        <div class="t-item">评分标准管理</div>
+        <div class="t-item">操作记录</div>
+        <div class="t-item">系统管理</div>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header"><span class="glyphicon glyphicon-home"></span> 统计分析</div>
+    <div class="section report">
+        <div class="r-filter">
+            <form id="r-filter" action="{:U('TeacherAdmin/student')}" method="get">
+                <div class="r-group r-title">筛选：</div>
+                <div class="r-group">
+                    <label class="r-label">专业</label>
+                    <select class="r-select r-profession" name="profession">
+                        <option value="all">全部</option>
+                        <volist name="professionList" id="vo">
+                            <if condition="$profession eq $vo['name']">
+                                <option value="{$vo['name']}" data-value="{$vo['id']}" selected>{$vo['name']}</option>
+                            <else />
+                                <option value="{$vo['name']}" data-value="{$vo['id']}">{$vo['name']}</option>
+                            </if>
+                        </volist>
+                    </select>
+                </div>
+                <div class="r-group">
+                    <label class="r-label">年级</label>
+                    <select class="r-select r-grade" name="grade">
+                        <option value="all">全部</option>
+                        <volist name="gradeList" id="vo">
+                            <if condition="$grade eq $vo['name']">
+                                <option value="{$vo['name']}" data-value="{$vo['id']}" selected>{$vo['name']}</option>
+                            <else />
+                                <option value="{$vo['name']}" data-value="{$vo['id']}">{$vo['name']}</option>
+                            </if>
+                        </volist>
+                    </select>
+                </div>
+                <div class="r-group">
+                    <label class="r-label">班别</label>
+                    <select class="r-select r-clazz" name="clazz">
+                        <option value="all">全部</option>
+                        <volist name="clazzList" id="vo">
+                            <if condition="$clazz eq $vo['name']">
+                                <option value="{$vo['name']}" data-value="{$vo['id']}" selected>{$vo['name']}</option>
+                            <else />
+                                <option value="{$vo['name']}" data-value="{$vo['id']}">{$vo['name']}</option>
+                            </if>
+                        </volist>
+                    </select>
+                </div>
+                <div class="r-download">
+                    <button class="btn btn-success" type="button" onclick="window.location.href='{:U(\'TeacherAdmin/downloadReport\')}'">数据下载</button>
+                </div>
+            </form>
+        </div>
+        <div class="r-tips">更新时间：<span class="a-tips-date"></span></div>
+        <table class="table table-check-result">
+            <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>名称</th>
+                    <th>专业</th>
+                    <th>年级</th>
+                    <th>班别</th>
+                    <th>需修总学分</th>
+                    <th>已修总学分</th>
+                    <th>必修未完成量</th>
+                </tr>
+            </thead>
+            <tbody>
+            <volist name="report" id="vo">
+                <tr>
+                    <td>{$vo['user_id']}</td>
+                    <td class="t-name"><a href="{$vo['student_url']}">{$vo['name']}</a></td>
+                    <td>{$vo['profession']}</td>
+                    <td>{$vo['grade']}级</td>
+                    <td>{$vo['clazz']}班</td>
+                    <td><span class="t-requiredPoint">{$vo['required_point']}</span>分</td>
+                    <td><span class="t-nowPoint">{$vo['sum']}</span>分</td>
+                    <td><span class="t-count">{$vo['fail']}</span>科</td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+        <div class="page">{$pageHtml}</div>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域"></block>
+<block name="js" title="js区域">
+    <script src="__PUBLIC__/application/TeacherAdmin/js/teacherAdmin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#msg").click(function(){
+            window.location.href='{:U(\'TeacherAdmin/message\')}'
+        });
+    </script>
+</block>

@@ -1,0 +1,470 @@
+/*侧边列表*/
+.typeList{
+    margin-top: 20px;
+}
+
+.t-item:first-child{
+    border-top: 1px solid #0e4269;
+}
+
+.t-item{
+    line-height: 40px;
+    border-bottom: 1px solid #0e4269;
+    color: #e1e1e1;
+    padding: 0 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.t-item:hover{
+    color: white;
+    background: #0e659b;
+    cursor: pointer;
+}
+
+.t-active,
+.t-active:hover{
+    background: #1181c4 url(../img/active.png) no-repeat center right !important;
+    color: white;
+}
+
+.t-title span{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.t-title span:hover{
+    color: #146ba9;
+}
+
+/*页面标题*/
+.header{
+    line-height: 80px;
+    font-size: 26px;
+    padding: 0 20px;
+    color: #343844;
+}
+
+.h-info{
+    font-size: 14px;
+    margin-left: 10px;
+    color: #797979;
+}
+
+.h-add{
+    float: right;
+    margin-top: 20px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.h-img{
+    height: 30px;
+    display: block;
+}
+
+.h-text{
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+    color: #074767;
+}
+
+.h-add:hover .h-text{
+    color: #0a91cd;
+}
+
+.section{
+    background: white;
+    border: 1px solid #ccc;
+}
+
+/*欢迎模块*/
+.welcome{
+    margin: 0 20px;
+    padding: 15px;
+    position: relative;
+}
+
+.w-title{
+    font-size: 22px;
+}
+
+.w-tips{
+    font-size: 12px;
+    color: #aaa;
+}
+
+.w-content{
+    height: 130px;
+    margin-top: 15px;
+}
+
+.w-small-title{
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.w-small-content{
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.w-small-row{
+    line-height: 26px;
+}
+
+.w-ico{
+    color: #0d5381;
+}
+
+.w-small-href,
+.w-item-user{
+    color: #028bee;
+}
+
+.w-small-href:hover,
+.w-item-user:hover{
+    color: #00b3ee;
+    cursor: pointer;
+}
+
+.w-news{
+    width: 40%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-left: 1px solid #ddd;
+}
+
+.w-news-title{
+    width: 100%;
+    line-height: 40px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.w-news-content{
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+    padding: 5px 10px 0 10px;
+    font-size: 12px;
+}
+
+.w-news-item{
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.w-news-item:last-child{
+    border-bottom: none;
+}
+
+.w-item-info{
+    line-height: 20px;
+    color: #7c7c7c;
+}
+
+.w-item-user{
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.w-item-date{
+    float: right;
+}
+
+.w-item-title{
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/*公共模块*/
+.notice{
+    margin: 20px;
+    padding: 15px;
+}
+
+.n-title{
+    font-size: 22px;
+}
+
+.n-tips{
+    font-size: 12px;
+    color: #aaa;
+}
+
+.n-content{
+    line-height: 25px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.n-edit{
+    float: right;
+    font-size: 14px;
+    color: #028bee;
+}
+
+.n-edit:hover{
+    color: #00b3ee;
+    cursor: pointer;
+}
+
+/*学生模块*/
+.report{ /*报表模块*/
+    margin: 0 20px 20px 20px;
+    padding: 15px;
+}
+
+.r-dropdown{
+    float: right;
+    position: relative;
+}
+
+
+.form-select{
+    height: 100%;
+    width: 100px;
+    text-align: center;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.dropdown-menu{
+    right: -1px;
+    left: auto;
+    width: 102px;
+    min-width: inherit;
+    padding: 0;
+}
+
+.dropdown-menu>li>a{
+    padding: 6px 15px;
+    cursor: pointer;
+}
+
+.dropdown-menu>li>a:hover{
+    background: #dadada;
+}
+
+.dropdown-menu>li>.active , .dropdown-menu>li>.active:hover{
+    background: #489ff8;
+    color: white;
+}
+
+.form-text{
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0;
+    border-radius: 3px;
+}
+
+.r-label{
+    font-weight: normal;
+    font-size: 16px;
+    display: inline-block;
+    color: #515151;
+}
+
+
+/*学分认证情况*/
+.analysis{
+    margin: 0 20px 20px 20px;
+    padding: 15px;
+}
+
+.a-title{
+    font-size: 22px;
+}
+
+.a-tips{
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+.a-result{
+    height: 100%;
+    font-size: 14px;
+    float: right;
+    margin-top: 10px;
+}
+
+.a-request,
+.a-sum,
+.a-count{
+    color: #0c4b74;
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+/*覆盖样式*/
+tbody{
+    font-size: 14px;
+}
+
+/*科目内容*/
+.a-tips-detail{
+    float: right;
+    font-size: 16px;
+    color: #2f2f2f;
+}
+
+.a-tips-item{
+    margin: 0 8px;
+}
+
+.t-ico{
+    height: 20px;
+    cursor: pointer;
+}
+
+.t-file{
+    cursor: pointer;
+}
+
+.t-name a,
+.t-view a{
+    color: #166ab2;
+    font-weight: bold;
+}
+
+.t-name a:hover,
+.t-view a:hover{
+    color: #166ab2;
+    text-decoration: underline;
+}
+
+.t-title span{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.t-title span:hover{
+    color: #146ba9;
+}
+
+
+/*内容详情*/
+.item-detail{
+    margin: 0 20px 20px 20px;
+}
+
+.item-detail .i-content{
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    display: table;
+}
+
+.item-detail .i-form{
+    max-width: 300px;
+    display: table-cell;
+    padding: 10px 15px;
+    vertical-align: top;
+}
+
+.item-detail .i-pdf{
+    min-width: 340px;
+    display: table-cell;
+    padding: 15px;
+    background: url(../img/pdfError_small.png) center no-repeat;
+}
+
+.item-detail  .f-label{
+    padding-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.item-detail  .f-group{
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.item-detail  .f-group span{
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.item-detail .f-student{
+    color: #313131;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.item-detail .f-info{
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.item-detail .f-student-title{
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 10px;
+    margin-top: 5px;
+}
+
+/*综合报表*/
+.r-tips{
+    font-size: 12px;
+    text-align: right;
+    color: #aaa;
+    margin-bottom: 5px;
+}
+
+.r-filter{
+    height: 45px;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.r-group{
+    margin-right: 40px;
+    float: left;
+}
+
+.r-label{
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.r-title{
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: #22292f;
+    margin-right: 25px;
+}
+
+.r-download{
+    float: right;
+    margin-top: -5px;
+}
+
+/*编辑模块*/
+.edit{
+    margin: 0 20px 20px 20px;
+    padding: 15px;
+    position: relative;
+}

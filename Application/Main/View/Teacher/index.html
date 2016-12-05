@@ -1,0 +1,81 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/Teacher/css/teacher.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="studentList">
+        <div class="s-item s-title s-active">首页</div>
+        <volist name="side" id="vo">
+            <div class="s-item">
+                <div class="s-title">{$vo['name']}<span class="s-ico glyphicon glyphicon-chevron-down"></span></div>
+                <div class="s-content">
+                    <volist name="vo['student']" id="vo2">
+                        <if condition="$type eq $vo2['student_id']">
+                            <div class="s-content-item s-name s-active" onclick="window.location.href='{$vo2[\'url\']}'">{$vo2['student_name']}</div>
+                        <else />
+                            <div class="s-content-item s-name" onclick="window.location.href='{$vo2[\'url\']}'">{$vo2['student_name']}</div>
+                        </if>
+                    </volist>
+                </div>
+            </div>
+        </volist>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header"><span class="glyphicon glyphicon-home"></span> 首页</div>
+    <div class="section welcome">
+        <div class="w-title">欢迎使用素质拓展活动学分认定系统！</div>
+        <div class="w-tips">本次登录IP为：{$note["login_ip"]} | 上次登录时间为：<empty name="note['created_at']">暂无记录</empty>{$note["created_at"]}</div>
+        <div class="w-content">
+            <div class="col-xs-4">
+                <div class="w-small-title">教师信息</div>
+                <div class="w-small-content">
+                    <div class="w-small-row"><span class="w-ico glyphicon glyphicon-barcode"></span> 工号：{$user[C('USERID')]}</div>
+                    <div class="w-small-row"><span class="w-ico glyphicon glyphicon-user"></span> 姓名：{$user[C('NAME')]}</div>
+                    <div class="w-small-row"><span class="w-ico glyphicon glyphicon-earphone"></span> 联络方式：{$user[C('MOBILE')]}</div>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="w-small-title w-control">快捷操作</div>
+                <div class="w-small-content">
+                    <div class="w-small-row w-small-href" onclick="window.location.href='{:U(\'Teacher/simpleApproval\')}'"><span class="w-ico glyphicon glyphicon-edit"></span> 快速审批</div>
+                    <div class="w-small-row w-small-href" onclick="window.location.href='{:U(\'Teacher/student\')}'"><span class="w-ico glyphicon glyphicon-list-alt"></span> 统计分析</div>
+                </div>
+            </div>
+            <div class="w-news">
+                <div class="w-news-title">学生动态</div>
+                <div class="w-news-content">
+                    <empty name="suspending">
+                        <div class="w-news-item">
+                            <div class="w-item-info" style="text-align: center;">暂无动态记录</div>
+                        </div>
+                    </empty>
+                    <volist name="suspending" id="vo">
+                        <div class="w-news-item">
+                            <div class="w-item-info">
+                                <span class="w-item-user" onclick="window.location.href='{$vo[\'student_url\']}'">{$vo['name']}</span> 上传了新材料
+                                <span class="w-item-date">{$vo['created_at']}</span>
+                            </div>
+                            <div class="w-item-title">{$vo['title']}</div>
+                        </div>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section notice">
+        <div class="n-title">通知</div>
+        <div class="n-tips">更新时间：{$notice['updated_at']}</div>
+        <div class="n-content">{$notice['content']}</div>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域"></block>
+<block name="js" title="js区域">
+    <script src="__PUBLIC__/application/Teacher/js/teacher.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#msg").click(function(){
+            window.location.href='{:U(\'Teacher/message\')}'
+        });
+    </script>
+</block>

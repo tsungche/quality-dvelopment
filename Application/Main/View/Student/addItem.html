@@ -1,0 +1,92 @@
+<extend name="Common:base" />
+<block name="css" title="css区域">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/application/Student/css/student.css">
+</block>
+<block name="menu" title="菜单区域">
+    <div class="typeList">
+        <div class="t-item" onclick="window.location.href='{:U(\'Student/index\')}'">首页</div>
+        <div class="t-item t-active">上传材料</div>
+        <volist name="side" id="vo">
+            <div class="t-item" onclick="window.location.href='{$vo[url]}'">{$vo['name']}</div>
+        </volist>
+    </div>
+</block>
+<block name="container" title="内容区域">
+    <div class="header"><span class="glyphicon glyphicon-home"></span> 上传材料</div>
+    <div class="section item">
+        <div class="i-content">
+            <div class="i-form">
+                <form id="i-add" method="post">
+                    <div class="f-teach">
+                        <div class="f-group">
+                            说明：为了方便资料的收集、整理与统计，统一使用PDF文件上传。<br/>
+                            教程：<a href="http://jingyan.baidu.com/article/dca1fa6f866c26f1a44052ea.html" target="_blank">【百度经验】word转pdf教程</a>
+                        </div>
+                    </div>
+                    <div class="f-group">
+                        <label class="f-label col-xs-3">标题</label>
+                        <input class="f-input col-xs-9" type="text" name="title" required>
+                    </div>
+                    <div class="f-group">
+                        <label class="f-label col-xs-3">类型</label>
+                        <select name="type_id">
+                            <volist name="side" id="vo">
+                                <option value="{$vo['id']}">{$vo['name']}</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="f-group">
+                        <label class="f-label col-xs-3">附件</label>
+                        <div class="f-upload-group col-xs-9">
+                            <input id="f-file" class="f-file" name="f-file" type="file" accept=".pdf">
+                            <button class="f-btn btn btn-danger" name="file" type="button">上传</button>
+                            <input class="f-url" type="hidden" name="url" value="">
+                            <div class="f-tips"> * . pdf ; 限制30MB</div>
+                        </div>
+                    </div>
+                    <div class="f-group" style="height: 150px">
+                        <label class="f-label col-xs-3">说明</label>
+                        <textarea name="remark"></textarea>
+                    </div>
+                    <div class="f-btn-group">
+                        <button id="btn-submit" class="btn btn-success" type="button">提交</button>
+                    </div>
+                </form>
+            </div>
+            <div id="modal-pdf" class="i-pdf"></div>
+        </div>
+    </div>
+    <div class="footer">©2015 <a href="http://shang.xy.zhbit.com/" target="_blank">北京理工大学珠海学院商学院</a> 版权所有</div>
+</block>
+<block name="extend" title="扩展区域">
+    <include file="Common:pdf" title="PDF文件预览"/>
+    <include file="Common:upload" title="文件上传"/>
+</block>
+<block name="js" title="js区域">
+    <script src="__PUBLIC__/application/Student/js/student.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#msg").click(function(){
+            window.location.href='{:U(\'Student/message\')}'
+        });
+        $("#btn-submit").on('click',function(){
+            $.ajax({
+                cache: true,
+                type: "POST",
+                url: "{:U('Student/saveItem')}",
+                data: $('#i-add').serialize(),// 你的formid
+                async: false,
+                error: function(data) {
+                    alert("操作发生异常");
+                },
+                success: function(data) {
+                    if(data.status){
+                        alert("操作成功");
+                        window.location.reload(true);
+                    }else{
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    </script>
+</block>
